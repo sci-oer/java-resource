@@ -21,6 +21,18 @@ It will run a wiki.js server and a jupyter notebooks server in the background an
 
 ## Using the container
 
+
+### Git
+To configure git within the container this can be done manually by running the `git config` commands or by using the envirionment variables
+
+`GIT_EMAIL='student@example.com'`, `GIT_NAME="My StudentName"`
+
+These envirionment variables can be configurd when you run the docker container
+
+```bash
+$ dockr run -it --rm -e GIT_EMAIL='student@example.com' -e GIT_NAME="My StudentName" judi:latest
+```
+
 ### Wiki
 
 The wiki can be found at http://localhost:3000
@@ -42,13 +54,10 @@ Password: password
 These are some of the tasks that can still be done to make it better
 
 - automatically generate an ssh keypair to be used for git
-- configure git user using environment variables on startup
 - add the volume mount points to the dockerfile
 - change the working directory to a workdir
-- install junit
 - seed the wiki with some initial content
 - make the wiki version configurable
 - specify a specific version for jupyter
 - set docker file labels
-- create some prefigured ssh aliases for the socs servers
 - add bash completions for the main tools that have been installed

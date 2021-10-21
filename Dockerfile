@@ -7,6 +7,11 @@ ARG NB_GID="100"
 ARG GRADLE_VERSION=7.2
 
 ENV DEBIAN_FRONTEND noninteractive
+
+
+# setup the man pages 
+RUN yes | unminimize
+
 RUN apt-get update -y && \ 
     apt-get install -y --no-install-recommends \
     wget \
@@ -55,8 +60,11 @@ EXPOSE 3000
 
 
 # install jupyter
-RUN pip3 install jupyter && \
-    mkdir /jupyter
+RUN pip3 install jupyter \
+    beakerx && \
+    beakerx install
+
+RUN mkdir /jupyter
 EXPOSE 8888
 
 # Configure environment
@@ -70,9 +78,13 @@ ENV SHELL=/bin/bash \
 
 RUN useradd -l -m -s /bin/bash -N -u "${NB_UID}" "${NB_USER}" 
 
-# USER ${NB_UID}
+# fix permissions
+ 
+
+
+#USER ${NB_UID}
 # setup the man pages 
-#RUN echo -e "y\ny\n" | unminimize
+# RUN yes | unminimize
 
 # create service file
 #RUN echo -e '#!/bin/bash\ncd /opt/wiki\nNODE_ENV=production node server\n' > wiki.sh && \
