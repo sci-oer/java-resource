@@ -18,13 +18,14 @@ ARG GRADLE_VERSION=7.2
 ARG WIKI_VERSION=2.5.219
 ARG NODE_VERSION=14
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive  \
+    TERM=xterm-256color
+
 
 # setup the man pages
 RUN yes | unminimize
 
-RUN apt-get update -y && \
-    apt-get install -y --no-install-recommends \
+RUN apt-get update -y && apt-get install -y --no-install-recommends \
     wget \
     curl \
     git \
@@ -42,7 +43,8 @@ RUN apt-get update -y && \
     sqlite3 \
     python3 \
     pip \
-    tini
+    tini \
+&& rm -rf /var/lib/apt/lists/*
 
 
 # install gradle
@@ -75,12 +77,12 @@ RUN pip3 install jupyter \
     beakerx && \
     beakerx install && \
     jupyter notebook --generate-config && \
-    echo "c.NotebookApp.password='$(python3 -c "from notebook.auth import passwd; print(passwd('password'))")'">>/root/.jupyter/jupyter_notebook_config.py
+    echo "c.NotebookApp.password='$(python3 -c "from notebook.auth import passwd; print(passwd('password'))")'" >> /root/.jupyter/jupyter_notebook_config.py
 
 EXPOSE 8888
 
 # Configure environment
-ENV SHELL=/bin/bash
+#ENV SHELL=/bin/bash
 
 COPY motd.txt wiki.sh jupyter.sh entrypoint.sh /
 
