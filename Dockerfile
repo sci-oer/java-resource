@@ -1,18 +1,29 @@
 FROM ubuntu:focal
 
-ARG NB_USER="student"
-ARG NB_UID="1000"
-ARG NB_GID="100"
+LABEL org.opencontainers.version="v1.0.0"
+
+LABEL org.opencontainers.image.authors="Marshall Asch <masch@uoguelph.ca> (https://marshallasch.ca)"
+LABEL org.opencontainers.image.url="https://github.com/MarshallAsch/judi_container.git"
+LABEL org.opencontainers.image.source="https://github.com/MarshallAsch/judi_container.git"
+LABEL org.opencontainers.image.vendor="University of Guelph School of Computer Science"
+LABEL org.opencontainers.image.licenses="GPL-3.0-only"
+LABEL org.opencontainers.image.title="Offline Course Resouce"
+LABEL org.opencontainers.image.description="This image is a base that can be used to act as an offline resource for students to contain all the instructional matrial and tools needed to do the course content"
+
+ARG VERSION=v1.0.0
+LABEL org.opencontainers.image.version="$VERSION"
+
 
 ARG GRADLE_VERSION=7.2
+ARG WIKI_VERSION=2.5.219
+ARG NODE_VERSION=14
 
 ENV DEBIAN_FRONTEND noninteractive
 
-
-# setup the man pages 
+# setup the man pages
 RUN yes | unminimize
 
-RUN apt-get update -y && \ 
+RUN apt-get update -y && \
     apt-get install -y --no-install-recommends \
     wget \
     curl \
@@ -34,7 +45,7 @@ RUN apt-get update -y && \
     tini
 
 
-# install gradle 
+# install gradle
 RUN wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -P /tmp && \
     unzip -d /opt/gradle /tmp/gradle-${GRADLE_VERSION}-bin.zip && \
     ln -s /opt/gradle/gradle-${GRADLE_VERSION} /opt/gradle/latest && \
@@ -42,55 +53,50 @@ RUN wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.
 
 
 # install node 14
-RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash - && \
+RUN curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - && \
     apt-get install -y nodejs && \
     npm install -g npm
 
+
 # install wikijs
-RUN wget https://github.com/Requarks/wiki/releases/download/2.5.219/wiki-js.tar.gz -P /tmp && \
+RUN wget https://github.com/Requarks/wiki/releases/download/${WIKI_VERSION}/wiki-js.tar.gz -P /tmp && \
     mkdir /opt/wiki && \
-    tar xzf /tmp/wiki-js.tar.gz -C /opt/wiki && \
-    mkdir /wiki
-ADD wiki_config.yml /opt/wiki/config.yml
+    tar xzf /tmp/wiki-js.tar.gz -C /opt/wiki
+
+COPY wiki_config.yml /opt/wiki/config.yml
 RUN cd /opt/wiki && \
     npm rebuild sqlite3
-ADD database.sqlite /wiki/database.sqlite
+COPY database.sqlite /opt/wiki/database.sqlite
 EXPOSE 3000
-
 
 
 # install jupyter
 RUN pip3 install jupyter \
     beakerx && \
-    beakerx install
+    beakerx install && \
+    jupyter notebook --generate-config && \
+    echo "c.NotebookApp.password='$(python3 -c "from notebook.auth import passwd; print(passwd('password'))")'">>/root/.jupyter/jupyter_notebook_config.py
 
-RUN mkdir /jupyter
 EXPOSE 8888
 
 # Configure environment
 ENV SHELL=/bin/bash \
     NB_USER="${NB_USER}" \
-    NB_UID=${NB_UID} \
-    NB_GID=${NB_GID} \
     LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8
 
-RUN useradd -l -m -s /bin/bash -N -u "${NB_UID}" "${NB_USER}" 
+COPY wiki.sh jupyter.sh entrypoint.sh /
 
-# fix permissions
- 
+WORKDIR /course
+VOLUME ["/course"]
 
+CMD ["/entrypoint.sh"]
 
-#USER ${NB_UID}
-# setup the man pages 
-# RUN yes | unminimize
+# these two labels will change every time the container is built
+# put them at the end because of layer caching
+ARG GIT_COMMIT
+LABEL org.opencontainers.image.revision="${GIT_COMMIT}"
 
-# create service file
-#RUN echo -e '#!/bin/bash\ncd /opt/wiki\nNODE_ENV=production node server\n' > wiki.sh && \
-#    chmod +x wiki.sh
-
-
-ADD wiki.sh jupyter.sh entrypoint.sh /
-
-CMD ["./entrypoint.sh"]
+ARG BUILD_DATE
+LABEL org.opencontainers.image.created="${BUILD_DATE}"

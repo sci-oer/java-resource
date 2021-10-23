@@ -47,7 +47,7 @@ db:
   # schema: public
 
   # SQLite only:
-  storage: /wiki/database.sqlite
+  storage: /course/wiki/database.sqlite
 
 #######################################################################
 # ADVANCED OPTIONS                                                    #
