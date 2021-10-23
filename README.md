@@ -12,7 +12,7 @@ $ docker build --build-arg GIT_COMMIT=$(git rev-parse -q --verify HEAD) --build-
 ## Running the container
 
 ```bash
-$ docker run --rm -it -p 3000:3000 -p 8888:8888 -v "$(pwd)/course:/course" judi:latest
+$ docker run --rm -it -p 3000:3000 -p 8888:8888 -p 2222:22 -v "$(pwd)/course:/course" judi:latest
 ```
 
 This container is designed to be run in the foreground.
@@ -50,6 +50,21 @@ When you go to the jupyter notebooks page there are two folders that will apear,
 All of the notebooks that are in the `builtin` folder are part of the container, any changes made to those notebooks will not be saved between container recreations.
 Each of the notebooks in the `persistant` folder will be saved to the `jupyter` folder inside the `course` volume; these will be saved.
 
+### ssh to work on files using external editor
+
+This container runs an ssh daemon and exposes port 22. 
+You can ssh into this container by running `ssh -p 2222 student@127.0.0.1`. 
+You do not need a password to ssh into the container, but the password is `password` for any command that needs it.
+
+Any files that are eddited should be put in the `/course/work` directory to be saved to the volume mount. 
+
+
+Although you are able to ssh into this container, it is preferd to attach additional terminals to the container directly.
+```bash
+$ docker exec -it container_name bash
+```
+
+The name of the container can be gotten by running `docker ps` or it can be specified when the container is created by passing the `--name my_name` flag to `docker run`.
 
 ## Customization of this container
 

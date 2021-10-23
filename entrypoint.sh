@@ -1,5 +1,10 @@
 #!/bin/bash
 
+
+# fix permissions, is this desired?
+#chown -R 1000 /course
+
+
 # configure git to be able to commit within the container
 if [[ ! -z "${GIT_EMAIL}" ]]; then
     git config --global user.email "$GIT_EMAIL"
@@ -24,6 +29,9 @@ fi
 #NODE_ENV=production node /opt/wiki/server &
 ( /wiki.sh > $LOGDIR/wiki-out.log 2> $LOGDIR/wiki-err.log  & )
 ( /jupyter.sh > $LOGDIR/jupyter-out.log 2> $LOGDIR/jupyter-err.log   & )
+
+# start the ssh service
+service ssh start
 
 cat /motd.txt
 
@@ -52,6 +60,6 @@ if [ ! -t 1 ] ; then
     exit -2
 fi
 
+#su -l student
 bash
-
 

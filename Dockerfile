@@ -19,8 +19,13 @@ ARG WIKI_VERSION=2.5.219
 ARG NODE_VERSION=14
 
 ENV DEBIAN_FRONTEND=noninteractive  \
-    TERM=xterm-256color
+    TERM=xterm-256color \
+    UID=1000 \
+    UNAME=student
 
+# create a 'normal' user so everything does not need to be run as root
+RUN useradd -m -s /bin/bash -u "${UID}" "${UNAME}" && \
+    echo "${UNAME}:password" | chpasswd
 
 # setup the man pages
 RUN yes | unminimize
@@ -44,8 +49,11 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
     python3 \
     pip \
     tini \
+    sudo \
 && rm -rf /var/lib/apt/lists/*
 
+RUN echo "${UNAME} ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/${UNAME} && \
+    chmod 0440 /etc/sudoers.d/${UNAME}
 
 # install gradle
 RUN wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -P /tmp && \
@@ -80,6 +88,8 @@ RUN pip3 install jupyter \
     echo "c.NotebookApp.password='$(python3 -c "from notebook.auth import passwd; print(passwd('password'))")'" >> /root/.jupyter/jupyter_notebook_config.py
 
 EXPOSE 8888
+
+EXPOSE 22
 
 # Configure environment
 #ENV SHELL=/bin/bash
