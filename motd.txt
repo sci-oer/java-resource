@@ -1,0 +1,7 @@
+Welcome to the generic course resource!!
+
+This is a fully interactive container that you can use to access a wiki (http://localhost:3000) and jupyter notebooks (http://localhost:8888)
+
+username: admin@example.com
+password for both: password
+

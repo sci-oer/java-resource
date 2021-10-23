@@ -25,4 +25,6 @@ fi
 ( /wiki.sh > $LOGDIR/wiki-out.log 2> $LOGDIR/wiki-err.log  & )
 ( /jupyter.sh > $LOGDIR/jupyter-out.log 2> $LOGDIR/jupyter-err.log   & )
 
+cat /motd.txt
+
 bash

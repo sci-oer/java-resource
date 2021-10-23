@@ -80,13 +80,9 @@ RUN pip3 install jupyter \
 EXPOSE 8888
 
 # Configure environment
-ENV SHELL=/bin/bash \
-    NB_USER="${NB_USER}" \
-    LC_ALL=en_US.UTF-8 \
-    LANG=en_US.UTF-8 \
-    LANGUAGE=en_US.UTF-8
+ENV SHELL=/bin/bash
 
-COPY wiki.sh jupyter.sh entrypoint.sh /
+COPY motd.txt wiki.sh jupyter.sh entrypoint.sh /
 
 # copy all the builtin jupyter notebooks
 COPY builtinNotebooks /jupyter/builtin

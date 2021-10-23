@@ -91,6 +91,10 @@ tags: coma, seperated, list
 Adding built in jupyter notebooks to the container is simpler. 
 Place all the desired files in the `builtinNotebooks` folder, then build the image.
 
+### Startup message
+
+To change the startup message that gets printed when the container starts edit the text in `motd.txt` to include the desired text
+
 ### Extending this container with custom container
 
 This image is designed to be used as a base image to be loaded with custom content for specific course deliveries. 
@@ -113,5 +117,3 @@ These are some of the tasks that can still be done to make it better
 - seed the wiki with some initial content
 - specify a specific version for jupyter
 - add bash completions for the main tools that have been installed
-- add a MOTD to when the container starts up to give a little bit of usage information
-- get all of the log messages for jupyter and the wiki to go to a log file
