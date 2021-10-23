@@ -88,6 +88,9 @@ ENV SHELL=/bin/bash \
 
 COPY wiki.sh jupyter.sh entrypoint.sh /
 
+# copy all the builtin jupyter notebooks
+COPY builtinNotebooks /jupyter/builtin
+
 WORKDIR /course
 VOLUME ["/course"]
 

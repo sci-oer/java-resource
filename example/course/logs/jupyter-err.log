@@ -1,0 +1,7 @@
+/bin/bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+[I 17:34:04.307 NotebookApp] Writing notebook server cookie secret to /root/.local/share/jupyter/runtime/notebook_cookie_secret
+[I 17:34:04.321 NotebookApp] Registered beakerx server extension at URL path /beakerx
+[I 17:34:04.321 NotebookApp] Serving notebooks from local directory: /jupyter
+[I 17:34:04.321 NotebookApp] Jupyter Notebook 6.4.5 is running at:
+[I 17:34:04.321 NotebookApp] http://751e7de84bd1:8888/
+[I 17:34:04.321 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).

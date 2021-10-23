@@ -1,0 +1,40 @@
+Loading configuration from /opt/wiki/config.yml... OK
+2021-10-23T17:34:03.756Z [MASTER] [32minfo[39m: =======================================
+2021-10-23T17:34:03.757Z [MASTER] [32minfo[39m: = Wiki.js 2.5.219 =====================
+2021-10-23T17:34:03.757Z [MASTER] [32minfo[39m: =======================================
+2021-10-23T17:34:03.757Z [MASTER] [32minfo[39m: Initializing...
+2021-10-23T17:34:04.176Z [MASTER] [32minfo[39m: Using database driver sqlite3 for sqlite [ OK ]
+2021-10-23T17:34:04.179Z [MASTER] [32minfo[39m: Connecting to database...
+2021-10-23T17:34:04.183Z [MASTER] [32minfo[39m: Database Connection Successful [ OK ]
+2021-10-23T17:34:04.527Z [MASTER] [33mwarn[39m: Mail is not setup! Please set the configuration in the administration area!
+2021-10-23T17:34:04.577Z [MASTER] [32minfo[39m: Loading GraphQL Schema...
+2021-10-23T17:34:05.025Z [MASTER] [32minfo[39m: GraphQL Schema: [ OK ]
+2021-10-23T17:34:05.196Z [MASTER] [32minfo[39m: HTTP Server on port: [ 3000 ]
+2021-10-23T17:34:05.206Z [MASTER] [32minfo[39m: HTTP Server: [ RUNNING ]
+2021-10-23T17:34:05.280Z [MASTER] [32minfo[39m: No new analytics providers found: [ SKIPPED ]
+2021-10-23T17:34:05.296Z [MASTER] [32minfo[39m: Loaded 20 authentication strategies: [ OK ]
+2021-10-23T17:34:05.304Z [MASTER] [32minfo[39m: No new comment providers found: [ SKIPPED ]
+2021-10-23T17:34:05.310Z [MASTER] [32minfo[39m: No new editors found: [ SKIPPED ]
+2021-10-23T17:34:05.322Z [MASTER] [32minfo[39m: No new loggers found: [ SKIPPED ]
+2021-10-23T17:34:05.340Z [MASTER] [32minfo[39m: No new renderers found: [ SKIPPED ]
+2021-10-23T17:34:05.350Z [MASTER] [32minfo[39m: No new search engines found: [ SKIPPED ]
+2021-10-23T17:34:05.361Z [MASTER] [32minfo[39m: No new storage targets found: [ SKIPPED ]
+2021-10-23T17:34:05.362Z [MASTER] [32minfo[39m: Checking for installed optional extensions...
+2021-10-23T17:34:05.375Z [MASTER] [32minfo[39m: Optional extension git is installed. [ OK ]
+2021-10-23T17:34:05.385Z [MASTER] [32minfo[39m: Optional extension pandoc was not found on this system. [ SKIPPED ]
+2021-10-23T17:34:05.395Z [MASTER] [32minfo[39m: Optional extension puppeteer was not found on this system. [ SKIPPED ]
+2021-10-23T17:34:05.396Z [MASTER] [32minfo[39m: Optional extension sharp was not found on this system. [ SKIPPED ]
+2021-10-23T17:34:05.398Z [MASTER] [32minfo[39m: Authentication Strategy Local: [ OK ]
+2021-10-23T17:34:05.814Z [MASTER] [32minfo[39m: (COMMENTS/DEFAULT) Initializing...
+2021-10-23T17:34:05.815Z [MASTER] [32minfo[39m: (COMMENTS/DEFAULT) Initialization completed.
+2021-10-23T17:34:05.824Z [MASTER] [32minfo[39m: Purging orphaned upload files...
+2021-10-23T17:34:05.825Z [MASTER] [32minfo[39m: Syncing locales with Graph endpoint...
+2021-10-23T17:34:05.826Z [MASTER] [32minfo[39m: Fetching latest updates from Graph endpoint...
+2021-10-23T17:34:05.849Z [MASTER] [32minfo[39m: Purging orphaned upload files: [ COMPLETED ]
+Loading configuration from /opt/wiki/config.yml... OK
+2021-10-23T17:34:05.987Z [JOB] [32minfo[39m: Rebuilding page tree...
+2021-10-23T17:34:06.015Z [MASTER] [32minfo[39m: Fetching latest updates from Graph endpoint: [ COMPLETED ]
+2021-10-23T17:34:06.257Z [MASTER] [32minfo[39m: Pulled latest locale updates for English from Graph endpoint: [ COMPLETED ]
+2021-10-23T17:34:06.262Z [MASTER] [32minfo[39m: Syncing locales with Graph endpoint: [ COMPLETED ]
+2021-10-23T17:34:06.375Z [JOB] [32minfo[39m: Using database driver sqlite3 for sqlite [ OK ]
+2021-10-23T17:34:06.405Z [JOB] [32minfo[39m: Rebuilding page tree: [ COMPLETED ]
