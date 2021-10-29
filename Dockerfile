@@ -38,7 +38,7 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
     nano \
     openssh-server \
     nginx \
-    openjdk-8-jdk \
+    openjdk-11-jdk \
     man \
     unzip \
     gcc \
@@ -81,10 +81,15 @@ EXPOSE 3000
 
 
 # install jupyter
-RUN pip3 install jupyter \
+RUN pip3 install \
+    jupyter \
+    jupyterlab \
+    ipykernel \
+    beakerx-kernel-java \
     beakerx && \
     beakerx install && \
-    jupyter notebook --generate-config && \
+    beakerx_kernel_java install && \
+    jupyter lab --generate-config && \
     echo "c.NotebookApp.password='$(python3 -c "from notebook.auth import passwd; print(passwd('password'))")'" >> /root/.jupyter/jupyter_notebook_config.py
 
 EXPOSE 8888
