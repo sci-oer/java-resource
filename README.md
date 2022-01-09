@@ -5,14 +5,22 @@ need to set wiki url to localhost:3000
 ## Building the container
 
 ```bash
-$ docker build --build-arg GIT_COMMIT=$(git rev-parse -q --verify HEAD) --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") -t judi:latest .
+docker build \
+    --build-arg GIT_COMMIT=$(git rev-parse -q --verify HEAD) 
+    --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") \
+    -t marshallasch/oo-resources:latest .
 ```
 
 
 ## Running the container
 
 ```bash
-$ docker run --rm -it -p 3000:3000 -p 8888:8888 -p 2222:22 -v "$(pwd)/course:/course" judi:latest
+docker run --rm -it \
+    -p 3000:3000 \
+    -p 8888:8888 \
+    -p 2222:22 \
+    -v "$(pwd)/course:/course" \
+    marshallasch/oo-resources:latest
 ```
 
 This container is designed to be run in the foreground.
@@ -29,7 +37,13 @@ To configure git within the container this can be done manually by running the `
 These environment variables can be configured when you run the docker container
 
 ```bash
-$ docker run -it --rm -e GIT_EMAIL='student@example.com' -e GIT_NAME="My StudentName" judi:latest
+docker run -it --rm \
+    -p 3000:3000 \
+    -p 8888:8888 \
+    -p 2222:22 \
+    -e GIT_EMAIL='student@example.com' \
+    -e GIT_NAME="My StudentName" \
+    marshallasch/oo-resources:latest
 ```
 
 ### Wiki
@@ -56,7 +70,7 @@ This container runs an ssh daemon and exposes port 22.
 You can ssh into this container by running `ssh -p 2222 student@127.0.0.1`. 
 You do not need a password to ssh into the container, but the password is `password` for any command that needs it.
 
-Any files that are eddited should be put in the `/course/work` directory to be saved to the volume mount. 
+Any files that are edited should be put in the `/course/work` directory to be saved to the volume mount. 
 
 
 Although you are able to ssh into this container, it is preferred to attach additional terminals to the container directly.
@@ -93,7 +107,7 @@ isPublished: 1
 tags: coma, separated, list
 ---
 ```
-3. Start the container _with_ the volume mount `docker run -it --rm -v "$(pwd)/course:/course" judi:latest`
+3. Start the container _with_ the volume mount `docker run -it --rm -v "$(pwd)/course:/course" marshallasch/oo-resources:latest`
 4. Go to http://localhost:3000 and navigate to Administration > Storage > Local File System
 5. Enable local file storage, set the Path to `/course/wiki/files`
 6. Scroll to the bottom of the page and run `Import Everything`, now all of the wiki pages should be imported
