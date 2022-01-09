@@ -10,7 +10,7 @@ need to set wiki url to localhost:3000
 
 ```bash
 docker build \
-    --build-arg GIT_COMMIT=$(git rev-parse -q --verify HEAD) 
+    --build-arg GIT_COMMIT=$(git rev-parse -q --verify HEAD) \
     --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") \
     -t marshallasch/oo-resources:latest .
 ```
