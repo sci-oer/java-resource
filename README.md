@@ -1,3 +1,7 @@
+[![Deployment](https://github.com/MarshallAsch/oo-resources/actions/workflows/deployment.yml/badge.svg)](https://github.com/MarshallAsch/oo-resources/actions/workflows/deployment.yml)
+![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/marshallasch/oo-resources?style=plastic)
+![Docker Pulls](https://img.shields.io/docker/pulls/marshallasch/oo-resources?style=plastic)
+
 need to manually setup the initial wiki setting and copy that database into the container
 need to set wiki url to localhost:3000
 
