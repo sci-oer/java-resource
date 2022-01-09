@@ -114,7 +114,7 @@ logLevel: info
 # If your server cannot access the internet. Set to true and manually
 # download the offline files for sideloading.
 
-offline: false
+offline: true
 
 # ---------------------------------------------------------------------
 # High-Availability
@@ -129,4 +129,4 @@ ha: false
 # Data Path
 # ---------------------------------------------------------------------
 # Writeable data path used for cache and temporary user uploads.
-dataPath: ./data
+dataPath: /wiki_data

@@ -24,8 +24,8 @@ ENV DEBIAN_FRONTEND=noninteractive  \
     UNAME=student
 
 WORKDIR /course
-VOLUME ["/course"]
-CMD ["/entrypoint.sh"]
+VOLUME [ "/course", "/wiki_data" ]
+ENTRYPOINT ["/entrypoint.sh"]
 
 
 EXPOSE 3000
@@ -71,7 +71,7 @@ RUN wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.
     echo -e 'export GRADLE_HOME=/opt/gradle/latest\nexport PATH=${GRADLE_HOME}/bin:${PATH}\n' >> /etc/profile.d/02-gradle.sh
 
 
-# install node 14
+# install node
 RUN curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - && \
     apt-get install -y nodejs && \
     npm install -g npm
@@ -79,7 +79,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - && \
 
 # install wikijs
 RUN wget https://github.com/Requarks/wiki/releases/download/${WIKI_VERSION}/wiki-js.tar.gz -P /tmp && \
-    mkdir /opt/wiki && \
+    mkdir -p /opt/wiki/sideload && \
     tar xzf /tmp/wiki-js.tar.gz -C /opt/wiki && \
     rm /tmp/wiki-js.tar.gz
 
@@ -88,6 +88,9 @@ RUN cd /opt/wiki && \
     npm rebuild sqlite3
 COPY database.sqlite /opt/wiki/database.sqlite
 
+# add the sideload files
+ADD https://raw.githubusercontent.com/Requarks/wiki-localization/master/en.json /opt/wiki/sideload/
+ADD https://raw.githubusercontent.com/Requarks/wiki-localization/master/locales.json /opt/wiki/sideload/
 
 # install jupyter
 RUN pip3 install \
