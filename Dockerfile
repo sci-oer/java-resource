@@ -36,9 +36,6 @@ EXPOSE 22
 RUN useradd -m -s /bin/bash -u "${UID}" "${UNAME}" && \
     echo "${UNAME}:password" | chpasswd
 
-RUN echo "${UNAME} ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/${UNAME} && \
-    chmod 0440 /etc/sudoers.d/${UNAME}
-
 # setup the man pages
 # RUN yes | unminimize
 
@@ -64,6 +61,8 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
     sudo \
 && rm -rf /var/lib/apt/lists/*
 
+RUN echo "${UNAME} ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/${UNAME} && \
+    chmod 0440 /etc/sudoers.d/${UNAME}
 
 # install gradle
 RUN wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -P /tmp && \
