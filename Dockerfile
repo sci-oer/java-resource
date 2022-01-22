@@ -17,11 +17,13 @@ LABEL org.opencontainers.image.version="$VERSION"
 ARG GRADLE_VERSION=7.2
 ARG WIKI_VERSION=2.5.268
 ARG NODE_VERSION=16
+ARG JUPYTER_PORT=8888
 
 ENV DEBIAN_FRONTEND=noninteractive  \
     TERM=xterm-256color \
     UID=1000 \
-    UNAME=student
+    UNAME=student \
+    JUPYTER_PORT=${JUPYTER_PORT}
 
 WORKDIR /course
 VOLUME [ "/course", "/wiki_data" ]
@@ -29,7 +31,7 @@ ENTRYPOINT ["/entrypoint.sh"]
 
 
 EXPOSE 3000
-EXPOSE 8888
+EXPOSE ${JUPYTER_PORT}
 EXPOSE 22
 
 # create a 'normal' user so everything does not need to be run as root
@@ -83,7 +85,7 @@ RUN wget https://github.com/Requarks/wiki/releases/download/${WIKI_VERSION}/wiki
     tar xzf /tmp/wiki-js.tar.gz -C /opt/wiki && \
     rm /tmp/wiki-js.tar.gz
 
-COPY wiki_config.yml /opt/wiki/config.yml
+COPY configs/wiki_config.yml /opt/wiki/config.yml
 RUN cd /opt/wiki && \
     npm rebuild sqlite3
 COPY database.sqlite /opt/wiki/database.sqlite
@@ -92,18 +94,19 @@ COPY database.sqlite /opt/wiki/database.sqlite
 ADD https://raw.githubusercontent.com/Requarks/wiki-localization/master/en.json /opt/wiki/sideload/
 ADD https://raw.githubusercontent.com/Requarks/wiki-localization/master/locales.json /opt/wiki/sideload/
 
-# install jupyter
+# install jupyter dependancies
 RUN pip3 install \
     jupyter \
     jupyterlab \
     ipykernel \
     beakerx-kernel-java \
-    beakerx && \
-    beakerx install && \
-    beakerx_kernel_java install && \
-    jupyter lab --generate-config && \
-    echo "c.NotebookApp.password='$(python3 -c "from notebook.auth import passwd; print(passwd('password'))")'" >> /root/.jupyter/jupyter_notebook_config.py
+    beakerx
 
+# Install jupyter kernerls
+RUN beakerx install && \
+    beakerx_kernel_java install
+
+COPY configs/jupyter_lab_config.py /root/.jupyter/jupyter_lab_config.py
 
 # Configure environment
 #ENV SHELL=/bin/bash

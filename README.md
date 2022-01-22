@@ -62,11 +62,12 @@ Password: password
 
 The jupyter notebooks site can be found at http://localhost:8888
 
-Password: password
+When you go to the jupyter notebooks page all of the builtin notebooks can be found in the `builtin` folder.
+All of the notebooks that are in the `builtin` folder are provided by the container, they can be modified and the modifications will be persistent as long as the same volume mount is used.
+If the volume is replaced then all the builtin notebooks will be replaced with fresh copies. 
+All of the notebooks that are created will be saved in the `course/jupyter/notebooks` directory.
 
-When you go to the jupyter notebooks page there are two folders that will appear, `builtin` and `persistent`.
-All of the notebooks that are in the `builtin` folder are part of the container, any changes made to those notebooks will not be saved between container recreations.
-Each of the notebooks in the `persistent` folder will be saved to the `jupyter` folder inside the `course` volume; these will be saved.
+Any user settings that are changed (such as dark mode) will also be persistent.
 
 ### ssh to work on files using external editor
 
