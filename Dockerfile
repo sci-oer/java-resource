@@ -67,10 +67,10 @@ RUN echo "${UNAME} ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/${UNAME} && \
     chmod 0440 /etc/sudoers.d/${UNAME}
 
 # install gradle
-RUN wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -P /tmp && \
-    unzip -d /opt/gradle /tmp/gradle-${GRADLE_VERSION}-bin.zip && \
-    ln -s /opt/gradle/gradle-${GRADLE_VERSION} /opt/gradle/latest && \
-    echo -e 'export GRADLE_HOME=/opt/gradle/latest\nexport PATH=${GRADLE_HOME}/bin:${PATH}\n' >> /etc/profile.d/02-gradle.sh
+# RUN wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -P /tmp && \
+#     unzip -d /opt/gradle /tmp/gradle-${GRADLE_VERSION}-bin.zip && \
+#     ln -s /opt/gradle/gradle-${GRADLE_VERSION} /opt/gradle/latest && \
+#     echo -e 'export GRADLE_HOME=/opt/gradle/latest\nexport PATH=${GRADLE_HOME}/bin:${PATH}\n' >> /etc/profile.d/02-gradle.sh
 
 
 # install node
