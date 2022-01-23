@@ -23,6 +23,7 @@ docker run --rm -it \
     -p 3000:3000 \
     -p 8888:8888 \
     -p 2222:22 \
+    -p 8000:8000 \
     -v "$(pwd)/course:/course" \
     marshallasch/oo-resources:latest
 ```
@@ -45,6 +46,7 @@ docker run -it --rm \
     -p 3000:3000 \
     -p 8888:8888 \
     -p 2222:22 \
+    -p 8000:8000 \
     -e GIT_EMAIL='student@example.com' \
     -e GIT_NAME="My StudentName" \
     marshallasch/oo-resources:latest
@@ -68,6 +70,10 @@ If the volume is replaced then all the builtin notebooks will be replaced with f
 All of the notebooks that are created will be saved in the `course/jupyter/notebooks` directory.
 
 Any user settings that are changed (such as dark mode) will also be persistent.
+
+### Java docs
+
+The javadocs for Java 11 have been built into this image and can be accessed at http://localhost:8000. 
 
 ### ssh to work on files using external editor
 
