@@ -29,6 +29,8 @@ fi
 #NODE_ENV=production node /opt/wiki/server &
 ( /wiki.sh > $LOGDIR/wiki-out.log 2> $LOGDIR/wiki-err.log  & )
 ( /jupyter.sh > $LOGDIR/jupyter-out.log 2> $LOGDIR/jupyter-err.log   & )
+( python3 -m http.server -d /opt/javadocs/11/docs/ 8000  > $LOGDIR/javadoc-out.log 2> $LOGDIR/javadoc-err.log & )
+
 
 # start the ssh service
 service ssh start
@@ -62,4 +64,3 @@ fi
 
 #su -l student
 bash
-

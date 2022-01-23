@@ -1,3 +1,7 @@
+FROM alpine:latest AS build-javadoc
+COPY javadocs/jdk-11.0.14_doc-all.zip javadoc.zip
+RUN unzip javadoc.zip -d javadoc
+
 FROM ubuntu:focal
 
 LABEL org.opencontainers.version="v1.0.0"
@@ -31,6 +35,7 @@ ENTRYPOINT ["/entrypoint.sh"]
 
 
 EXPOSE 3000
+EXPOSE 8000
 EXPOSE ${JUPYTER_PORT}
 EXPOSE 22
 
@@ -65,6 +70,8 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
 
 RUN echo "${UNAME} ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/${UNAME} && \
     chmod 0440 /etc/sudoers.d/${UNAME}
+
+COPY --from=build-javadoc /javadoc/ /opt/javadocs/11/
 
 # install gradle
 RUN wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -P /tmp && \
