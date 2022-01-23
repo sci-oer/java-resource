@@ -1,5 +1,5 @@
 
-FROM judi:latest
+FROM marshallasch/oo-resources:main
 
 LABEL org.opencontainers.version="v1.0.0"
 LABEL org.opencontainers.image.authors="Marshall Asch <masch@uoguelph.ca> (https://marshallasch.ca"
@@ -16,4 +16,3 @@ COPY motd.txt /motd.txt
 
 ARG BUILD_DATE
 LABEL org.opencontainers.image.created="${BUILD_DATE}"
-
