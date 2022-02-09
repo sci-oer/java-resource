@@ -77,7 +77,7 @@ COPY --from=build-javadoc /javadoc/ /opt/javadocs/11/
 RUN wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -P /tmp && \
     unzip -d /opt/gradle /tmp/gradle-${GRADLE_VERSION}-bin.zip && \
     ln -s /opt/gradle/gradle-${GRADLE_VERSION} /opt/gradle/latest && \
-    echo -e 'export GRADLE_HOME=/opt/gradle/latest\nexport PATH=${GRADLE_HOME}/bin:${PATH}\n' >> /etc/profile.d/02-gradle.sh
+    echo 'export GRADLE_HOME=/opt/gradle/latest\nexport PATH=${GRADLE_HOME}/bin:${PATH}\n' >> /etc/profile.d/02-gradle.sh
 
 
 # install node

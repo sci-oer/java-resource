@@ -4,6 +4,8 @@
 # fix permissions, is this desired?
 #chown -R 1000 /course
 
+# Load the gradle installation
+source /etc/profile.d/02-gradle.sh
 
 # configure git to be able to commit within the container
 if [[ ! -z "${GIT_EMAIL}" ]]; then
