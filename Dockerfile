@@ -7,8 +7,8 @@ FROM ubuntu:focal
 LABEL org.opencontainers.version="v1.0.0"
 
 LABEL org.opencontainers.image.authors="Marshall Asch <masch@uoguelph.ca> (https://marshallasch.ca)"
-LABEL org.opencontainers.image.url="https://github.com/MarshallAsch/oo-resources.git"
-LABEL org.opencontainers.image.source="https://github.com/MarshallAsch/oo-resources.git"
+LABEL org.opencontainers.image.url="https://github.com/sci-oer/oo-resources.git"
+LABEL org.opencontainers.image.source="https://github.com/sci-oer/oo-resources.git"
 LABEL org.opencontainers.image.vendor="University of Guelph School of Computer Science"
 LABEL org.opencontainers.image.licenses="GPL-3.0-only"
 LABEL org.opencontainers.image.title="Offline Course Resouce"
@@ -18,7 +18,7 @@ ARG VERSION=v1.0.0
 LABEL org.opencontainers.image.version="$VERSION"
 
 
-ARG GRADLE_VERSION=7.4
+ARG GRADLE_VERSION=7.4.1
 ARG WIKI_VERSION=v2.5.276
 ARG NODE_VERSION=16
 ARG JUPYTER_PORT=8888
@@ -54,7 +54,7 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
     nano \
     openssh-server \
     nginx \
-    openjdk-11-jdk \
+    openjdk-11ls-jdk \
     man \
     unzip \
     gcc \
