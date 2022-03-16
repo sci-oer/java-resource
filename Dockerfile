@@ -19,7 +19,7 @@ LABEL org.opencontainers.image.version="$VERSION"
 
 
 ARG GRADLE_VERSION=7.4
-ARG WIKI_VERSION=2.5.268
+ARG WIKI_VERSION=v2.5.276
 ARG NODE_VERSION=16
 ARG JUPYTER_PORT=8888
 
@@ -62,7 +62,8 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
     make \
     build-essential \
     sqlite3 \
-    python3 \
+    python3-dev \
+    python-dev \
     pip \
     tini \
     sudo \
