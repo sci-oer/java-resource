@@ -54,7 +54,7 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
     nano \
     openssh-server \
     nginx \
-    openjdk-11ls-jdk \
+    openjdk-11-jdk \
     man \
     unzip \
     gcc \
