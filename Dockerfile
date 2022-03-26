@@ -54,7 +54,7 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
     nano \
     openssh-server \
     nginx \
-    openjdk-11ls-jdk \
+    openjdk-11-jdk \
     man \
     unzip \
     gcc \
@@ -119,10 +119,16 @@ COPY configs/jupyter_lab_config.py /root/.jupyter/jupyter_lab_config.py
 # Configure environment
 #ENV SHELL=/bin/bash
 
-COPY motd.txt wiki.sh jupyter.sh entrypoint.sh /
+COPY motd.txt wiki.sh jupyter.sh entrypoint.sh filesetup.sh /
 
 # copy all the builtin jupyter notebooks
-COPY builtinNotebooks /jupyter/builtin
+COPY builtinNotebooks /builtin/jupyter
+
+RUN mkdir -p \
+        /builtin/jupyter \
+        /builtin/coursework \
+        /builtin/lectures  \
+        /builtin/practiceProblems
 
 # these two labels will change every time the container is built
 # put them at the end because of layer caching

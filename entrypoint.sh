@@ -19,7 +19,12 @@ fi
 
 # Setup directories in the potentially mounted volume
 LOGDIR="/course/logs"
-mkdir -p "/course/wiki" "/course/jupyter" "/course/work" $LOGDIR
+mkdir -p "/course/wiki" \
+        "/course/jupyter/notebooks/tutorials"  \
+        "/course/coursework" \
+        "/course/lectures" \
+        "/course/practiceProblems" \
+        "$LOGDIR"
 
 
 # copy the wiki database if it is not already there
@@ -27,8 +32,7 @@ if [[ ! -f "/course/wiki/database.sqlite" ]]; then
     cp /opt/wiki/database.sqlite /course/wiki/database.sqlite
 fi
 
-
-#NODE_ENV=production node /opt/wiki/server &
+( /filesetup.sh > $LOGDIR/setup-out.log 2> $LOGDIR/setup-err.log )
 ( /wiki.sh > $LOGDIR/wiki-out.log 2> $LOGDIR/wiki-err.log  & )
 ( /jupyter.sh > $LOGDIR/jupyter-out.log 2> $LOGDIR/jupyter-err.log   & )
 ( python3 -m http.server -d /opt/javadocs/11/docs/ 8000  > $LOGDIR/javadoc-out.log 2> $LOGDIR/javadoc-err.log & )
