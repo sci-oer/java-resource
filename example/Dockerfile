@@ -12,7 +12,7 @@ LABEL org.opencontainers.image.description="This image containes all the content
 
 COPY builtinNotebooks /jupyter/builtin
 COPY database.sqlite /opt/wiki/database.sqlite
-COPY motd.txt /motd.txt
+COPY motd.txt /scripts/motd.txt
 
 ARG BUILD_DATE
 LABEL org.opencontainers.image.created="${BUILD_DATE}"

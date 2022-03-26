@@ -31,7 +31,7 @@ ENV DEBIAN_FRONTEND=noninteractive  \
 
 WORKDIR /course
 VOLUME [ "/course", "/wiki_data" ]
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT [ "/scripts/entrypoint.sh" ]
 
 
 EXPOSE 3000
@@ -119,7 +119,9 @@ COPY configs/jupyter_lab_config.py /opt/jupyter/jupyter_lab_config.py
 # Configure environment
 #ENV SHELL=/bin/bash
 
-COPY motd.txt wiki.sh jupyter.sh entrypoint.sh filesetup.sh /
+COPY scripts /scripts/
+COPY motd.txt /scripts/
+
 
 # copy all the builtin jupyter notebooks
 COPY builtinNotebooks /builtin/jupyter
@@ -131,7 +133,7 @@ RUN mkdir -p \
         /builtin/lectures  \
         /builtin/practiceProblems
 
-RUN chown -R ${UID}:${UID} /builtin /course /opt/wiki /wiki_data
+RUN chown -R ${UID}:${UID} /scripts /builtin /course /opt/wiki /wiki_data
 USER ${UNAME}
 RUN ln -s /course ~/course
 

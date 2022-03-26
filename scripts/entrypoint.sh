@@ -38,12 +38,12 @@ if [[ ! -f "/course/wiki/database.sqlite" ]]; then
     cp /opt/wiki/database.sqlite /course/wiki/database.sqlite
 fi
 
-( /filesetup.sh > $LOGDIR/setup-out.log 2> $LOGDIR/setup-err.log )
-( /wiki.sh > $LOGDIR/wiki-out.log 2> $LOGDIR/wiki-err.log  & )
-( /jupyter.sh > $LOGDIR/jupyter-out.log 2> $LOGDIR/jupyter-err.log   & )
+( /scripts/filesetup.sh > $LOGDIR/setup-out.log 2> $LOGDIR/setup-err.log )
+( /scripts/wiki.sh > $LOGDIR/wiki-out.log 2> $LOGDIR/wiki-err.log  & )
+( /scripts/jupyter.sh > $LOGDIR/jupyter-out.log 2> $LOGDIR/jupyter-err.log   & )
 ( python3 -m http.server -d /opt/javadocs/11/docs/ 8000  > $LOGDIR/javadoc-out.log 2> $LOGDIR/javadoc-err.log & )
 
-cat /motd.txt
+cat /scripts/motd.txt
 
 
 # if it is not interactive then print an error message with suggestion to use docker run -it instead
