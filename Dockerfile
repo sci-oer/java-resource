@@ -29,6 +29,7 @@ ENV DEBIAN_FRONTEND=noninteractive  \
     UNAME=student \
     JUPYTER_PORT=${JUPYTER_PORT}
 
+
 WORKDIR /course
 VOLUME [ "/course", "/wiki_data" ]
 ENTRYPOINT [ "/scripts/entrypoint.sh" ]
@@ -42,6 +43,13 @@ EXPOSE 22
 # create a 'normal' user so everything does not need to be run as root
 RUN useradd -m -s /bin/bash -u "${UID}" "${UNAME}" && \
     echo "${UNAME}:password" | chpasswd
+
+RUN mkdir -p \
+        /wiki_data \
+        /builtin/jupyter \
+        /builtin/coursework \
+        /builtin/lectures  \
+        /builtin/practiceProblems
 
 # setup the man pages
 # RUN yes | unminimize
@@ -116,26 +124,18 @@ RUN beakerx install && \
 
 COPY configs/jupyter_lab_config.py /opt/jupyter/jupyter_lab_config.py
 
-# Configure environment
-#ENV SHELL=/bin/bash
+# copy all the builtin jupyter notebooks
+COPY builtinNotebooks /builtin/jupyter
+RUN chown -R ${UID}:${UID} /builtin /course /opt/wiki /wiki_data
 
 COPY scripts /scripts/
 COPY motd.txt /scripts/
+RUN chown -R ${UID}:${UID} /scripts
 
-
-# copy all the builtin jupyter notebooks
-COPY builtinNotebooks /builtin/jupyter
-
-RUN mkdir -p \
-        /wiki_data \
-        /builtin/jupyter \
-        /builtin/coursework \
-        /builtin/lectures  \
-        /builtin/practiceProblems
-
-RUN chown -R ${UID}:${UID} /scripts /builtin /course /opt/wiki /wiki_data
-USER ${UNAME}
+USER ${UNAME} 
 RUN ln -s /course ~/course
+
+RUN echo 'export PS1="\[\033[01;32m\]oer\[\033[00m\]-\[\033[01;34m\]\W\[\033[00m\]\$ "' >> ~/.bashrc
 
 # these two labels will change every time the container is built
 # put them at the end because of layer caching
