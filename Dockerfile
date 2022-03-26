@@ -114,7 +114,7 @@ RUN pip3 install \
 RUN beakerx install && \
     beakerx_kernel_java install
 
-COPY configs/jupyter_lab_config.py /root/.jupyter/jupyter_lab_config.py
+COPY configs/jupyter_lab_config.py /opt/jupyter/jupyter_lab_config.py
 
 # Configure environment
 #ENV SHELL=/bin/bash
@@ -125,10 +125,15 @@ COPY motd.txt wiki.sh jupyter.sh entrypoint.sh filesetup.sh /
 COPY builtinNotebooks /builtin/jupyter
 
 RUN mkdir -p \
+        /wiki_data \
         /builtin/jupyter \
         /builtin/coursework \
         /builtin/lectures  \
         /builtin/practiceProblems
+
+RUN chown -R ${UID}:${UID} /builtin /course /opt/wiki /wiki_data
+USER ${UNAME}
+RUN ln -s /course ~/course
 
 # these two labels will change every time the container is built
 # put them at the end because of layer caching
