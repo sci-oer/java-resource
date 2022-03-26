@@ -133,6 +133,7 @@ RUN mkdir -p \
 
 RUN chown -R ${UID}:${UID} /builtin /course /opt/wiki /wiki_data
 USER ${UNAME}
+RUN ln -s /course ~/course
 
 # these two labels will change every time the container is built
 # put them at the end because of layer caching
