@@ -48,7 +48,7 @@ RUN mkdir -p \
         /wiki_data \
         /builtin/jupyter \
         /builtin/coursework \
-        /builtin/lectures  \
+        /opt/static/lectures  \
         /builtin/practiceProblems
 
 # setup the man pages
@@ -80,7 +80,7 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
 RUN echo "${UNAME} ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/${UNAME} && \
     chmod 0440 /etc/sudoers.d/${UNAME}
 
-COPY --from=build-javadoc /javadoc/ /opt/javadocs/11/
+COPY --from=build-javadoc /javadoc/ /opt/static/
 
 # install gradle
 RUN wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -P /tmp && \
@@ -126,7 +126,7 @@ COPY configs/jupyter_lab_config.py /opt/jupyter/jupyter_lab_config.py
 
 # copy all the builtin jupyter notebooks
 COPY builtinNotebooks /builtin/jupyter
-RUN chown -R ${UID}:${UID} /builtin /course /opt/wiki /wiki_data
+RUN chown -R ${UID}:${UID} /builtin /opt/static /course /opt/wiki /wiki_data
 
 COPY scripts /scripts/
 COPY motd.txt /scripts/

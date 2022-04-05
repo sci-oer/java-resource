@@ -41,7 +41,7 @@ fi
 ( /scripts/filesetup.sh > $LOGDIR/setup-out.log 2> $LOGDIR/setup-err.log )
 ( /scripts/wiki.sh > $LOGDIR/wiki-out.log 2> $LOGDIR/wiki-err.log  & )
 ( /scripts/jupyter.sh > $LOGDIR/jupyter-out.log 2> $LOGDIR/jupyter-err.log   & )
-( python3 -m http.server -d /opt/javadocs/11/docs/ 8000  > $LOGDIR/javadoc-out.log 2> $LOGDIR/javadoc-err.log & )
+( /scripts/serveStatic.sh  > $LOGDIR/javadoc-out.log 2> $LOGDIR/javadoc-err.log & )
 
 cat /scripts/motd.txt
 
