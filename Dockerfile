@@ -2,7 +2,7 @@ FROM alpine:latest AS build-javadoc
 COPY javadocs/jdk-11.0.14_doc-all.zip javadoc.zip
 RUN unzip javadoc.zip -d javadoc
 
-FROM ubuntu:focal
+FROM ubuntu:jammy
 
 LABEL org.opencontainers.version="v1.0.0"
 
