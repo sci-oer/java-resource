@@ -1,6 +1,6 @@
 [![Deployment](https://github.com/sci-oer/java-resource/actions/workflows/deployment.yml/badge.svg)](https://github.com/sci-oer/java-resource/actions/workflows/deployment.yml)
-![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/marshallasch/java-resources?style=plastic)
-![Docker Pulls](https://img.shields.io/docker/pulls/marshallasch/java-resources?style=plastic)
+![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/marshallasch/java-resource?style=plastic)
+![Docker Pulls](https://img.shields.io/docker/pulls/marshallasch/java-resource?style=plastic)
 
 
 This is the Java-11 specific version of the sci-oer resource.
