@@ -21,6 +21,11 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: marshallasch/oo-resources
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=semver,pattern={{version}}
+            type=ref,event=branch
+            type=ref,event=tag
       - name: Set up QEMU
         id: qemu
         uses: docker/setup-qemu-action@v2
