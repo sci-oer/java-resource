@@ -7,12 +7,12 @@ FROM marshallasch/base-resource:main
 LABEL org.opencontainers.version="v1.0.0"
 
 LABEL org.opencontainers.image.authors="Marshall Asch <masch@uoguelph.ca> (https://marshallasch.ca)"
-LABEL org.opencontainers.image.url="https://github.com/sci-oer/java-resources.git"
-LABEL org.opencontainers.image.source="https://github.com/sci-oer/java-resources.git"
+LABEL org.opencontainers.image.url="https://github.com/sci-oer/java-resource.git"
+LABEL org.opencontainers.image.source="https://github.com/sci-oer/java-resource.git"
 LABEL org.opencontainers.image.vendor="University of Guelph School of Computer Science"
 LABEL org.opencontainers.image.licenses="GPL-3.0-only"
-LABEL org.opencontainers.image.title="Offline Course Resouce"
-LABEL org.opencontainers.image.description="This image is a base that can be used to act as an offline resource for students to contain all the instructional matrial and tools needed to do the course content"
+LABEL org.opencontainers.image.title="Java Offline Course Resouce"
+LABEL org.opencontainers.image.description="This image is the Java specific image that can be used to act as an offline resource for students to contain all the instructional matrial and tools needed to do the course content"
 
 ARG VERSION=v1.0.0
 LABEL org.opencontainers.image.version="$VERSION"
@@ -46,7 +46,7 @@ RUN beakerx_kernel_java install
 
 # copy all the builtin jupyter notebooks
 COPY builtinNotebooks /builtin/jupyter
-RUN chown -R ${UID}:${UID} /builtin /opt/static /course /opt/wiki /wiki_data
+RUN chown -R ${UID}:${UID} /builtin /opt/static /opt/wiki
 
 COPY motd.txt /scripts/
 RUN chown -R ${UID}:${UID} /scripts
