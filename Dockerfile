@@ -29,7 +29,7 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
 && rm -rf /var/lib/apt/lists/*
 
 # install gradle
-RUN wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -P /tmp && \
+RUN curl -L https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip --output /tmp/gradle-${GRADLE_VERSION}-bin.zip && \
     unzip -d /opt/gradle /tmp/gradle-${GRADLE_VERSION}-bin.zip && \
     ln -s /opt/gradle/gradle-${GRADLE_VERSION} /opt/gradle/latest && \
     echo 'export GRADLE_HOME=/opt/gradle/latest\nexport PATH=${GRADLE_HOME}/bin:${PATH}\n' >> /etc/profile.d/02-gradle.sh
