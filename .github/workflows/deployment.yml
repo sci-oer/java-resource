@@ -49,5 +49,5 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           platforms: linux/amd64,linux/arm64,linux/amd64/v2,linux/arm/v7
           build-args: |
-            BUILD_DATE=${{ steps.date.outputs.date }}
+            BUILD_DATE=${{ steps.prep.outputs.date }}
             VCS_REF=${{ github.sha }}
