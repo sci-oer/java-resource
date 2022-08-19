@@ -2,7 +2,7 @@ FROM alpine:latest AS build-javadoc
 COPY javadocs/jdk-11.0.14_doc-all.zip javadoc.zip
 RUN unzip javadoc.zip -d javadoc
 
-FROM marshallasch/base-resource:main
+FROM marshallasch/base-resource:latest
 
 LABEL org.opencontainers.version="v1.0.0"
 
@@ -16,11 +16,7 @@ LABEL org.opencontainers.image.description="This image is the Java specific imag
 
 ARG VERSION=v1.0.0
 LABEL org.opencontainers.image.version="$VERSION"
-
 ARG GRADLE_VERSION=7.4.1
-
-# setup the man pages
-# RUN yes | unminimize
 
 USER root
 
@@ -35,8 +31,7 @@ RUN curl -L https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-b
     echo 'export GRADLE_HOME=/opt/gradle/latest\nexport PATH=${GRADLE_HOME}/bin:${PATH}\n' >> /etc/profile.d/02-gradle.sh
 
 COPY --from=build-javadoc /javadoc/ /opt/static/
-
-COPY database.sqlite /opt/wiki/database.sqlite
+RUN chown -R ${UID}:${UID} /opt/static
 
 # install jupyter dependancies
 RUN pip3 install beakerx-kernel-java
@@ -44,14 +39,7 @@ RUN pip3 install beakerx-kernel-java
 # Install jupyter kernels
 RUN beakerx_kernel_java install
 
-# copy all the builtin jupyter notebooks
-COPY builtinNotebooks /builtin/jupyter
-RUN chown -R ${UID}:${UID} /builtin /opt/static /opt/wiki
-
-COPY motd.txt /scripts/
-RUN chown -R ${UID}:${UID} /scripts
-
-USER ${UNAME} 
+USER ${UNAME}
 
 # these two labels will change every time the container is built
 # put them at the end because of layer caching
