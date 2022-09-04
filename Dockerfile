@@ -42,7 +42,7 @@ RUN beakerx_kernel_java install
 
 USER ${UNAME}
 
-# these two labels will change every time the container is built
+# these three labels will change every time the container is built
 # put them at the end because of layer caching
 
 ARG VERSION=v1.0.0
