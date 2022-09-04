@@ -3,7 +3,7 @@ COPY javadocs/jdk-11.0.14_doc-all.zip javadoc.zip
 RUN unzip javadoc.zip -d javadoc
 
 FROM alpine:latest AS unpack-gradle
-ARG GRADLE_VERSION=7.4.1
+ARG GRADLE_VERSION=7.5.1
 
 RUN wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -O /tmp/gradle-${GRADLE_VERSION}-bin.zip
 RUN unzip -d /opt/gradle /tmp/gradle-${GRADLE_VERSION}-bin.zip && mv /opt/gradle/gradle-${GRADLE_VERSION} /opt/gradle/latest
