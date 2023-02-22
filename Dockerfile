@@ -8,7 +8,7 @@ ARG GRADLE_VERSION=8.0
 RUN wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -O /tmp/gradle-${GRADLE_VERSION}-bin.zip
 RUN unzip -d /opt/gradle /tmp/gradle-${GRADLE_VERSION}-bin.zip && mv /opt/gradle/gradle-${GRADLE_VERSION} /opt/gradle/latest
 
-FROM marshallasch/base-resource:sha-6ae2b4c
+FROM scioer/base-resource:sha-40bb95e
 
 LABEL org.opencontainers.version="v1.0.0"
 
