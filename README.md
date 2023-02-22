@@ -1,10 +1,10 @@
 [![Deployment](https://github.com/sci-oer/java-resource/actions/workflows/deployment.yml/badge.svg)](https://github.com/sci-oer/java-resource/actions/workflows/deployment.yml)
-![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/marshallasch/java-resource?style=plastic)
-![Docker Pulls](https://img.shields.io/docker/pulls/marshallasch/java-resource?style=plastic)
+![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/scioer/java-resource?style=plastic)
+![Docker Pulls](https://img.shields.io/docker/pulls/scioer/java-resource?style=plastic)
 
 
 This is the Java-11 specific version of the sci-oer resource.
-This extends the configuration defined in the [sci-oer/base-resource](https://github.com/sci-oer/base-resource) and adds the language specific dependencies. 
+This extends the configuration defined in the [sci-oer/base-resource](https://github.com/sci-oer/base-resource) and adds the language specific dependencies.
 
 ## Building the container
 
@@ -12,7 +12,7 @@ This extends the configuration defined in the [sci-oer/base-resource](https://gi
 docker build \
     --build-arg GIT_COMMIT=$(git rev-parse -q --verify HEAD) \
     --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") \
-    -t marshallasch/java-resource:latest .
+    -t scioer/java-resource:latest .
 ```
 
 
@@ -25,7 +25,7 @@ docker run --rm -it \
     -p 2222:22 \
     -p 8000:8000 \
     -v "$(pwd)/course:/course" \
-    marshallasch/java-resource:latest
+    scioer/java-resource:latest
 ```
 
 This container is designed to be run in the foreground.
@@ -49,7 +49,7 @@ docker run -it --rm \
     -p 8000:8000 \
     -e GIT_EMAIL='student@example.com' \
     -e GIT_NAME="My StudentName" \
-    marshallasch/java-resource:latest
+    scioer/java-resource:latest
 ```
 
 ### Wiki
@@ -66,22 +66,22 @@ The jupyter notebooks site can be found at http://localhost:8888
 
 When you go to the jupyter notebooks page all of the builtin notebooks can be found in the `builtin` folder.
 All of the notebooks that are in the `builtin` folder are provided by the container, they can be modified and the modifications will be persistent as long as the same volume mount is used.
-If the volume is replaced then all the builtin notebooks will be replaced with fresh copies. 
+If the volume is replaced then all the builtin notebooks will be replaced with fresh copies.
 All of the notebooks that are created will be saved in the `course/jupyter/notebooks` directory.
 
 Any user settings that are changed (such as dark mode) will also be persistent.
 
 ### Java docs
 
-The javadocs for Java 11 have been built into this image and can be accessed at http://localhost:8000. 
+The javadocs for Java 11 have been built into this image and can be accessed at http://localhost:8000.
 
 ### ssh to work on files using external editor
 
-This container runs an ssh daemon and exposes port 22. 
-You can ssh into this container by running `ssh -p 2222 student@127.0.0.1`. 
+This container runs an ssh daemon and exposes port 22.
+You can ssh into this container by running `ssh -p 2222 student@127.0.0.1`.
 You do not need a password to ssh into the container, but the password is `password` for any command that needs it.
 
-Any files that are edited should be put in the `/course/work` directory to be saved to the volume mount. 
+Any files that are edited should be put in the `/course/work` directory to be saved to the volume mount.
 
 
 Although you are able to ssh into this container, it is preferred to attach additional terminals to the container directly.
@@ -96,11 +96,11 @@ The name of the container can be gotten by running `docker ps` or it can be spec
 ### How to configure custom wiki content
 
 Any built in content to be included in the wiki must be added manually.
-Unfortunately there is not currently an easy mechanism to automatically load markdown files from a directory into the wiki. 
+Unfortunately there is not currently an easy mechanism to automatically load markdown files from a directory into the wiki.
 
 To Load custom content into the container the following process is suggested:
 
-1. Start the container _with_ the volume mount `docker run -it --rm -v "$(pwd)/course:/course" marshallasch/java-resource:latest`
+1. Start the container _with_ the volume mount `docker run -it --rm -v "$(pwd)/course:/course" scioer/java-resource:latest`
 2. Go to http://localhost:3000 and create all of the desired wiki pages and configurations
 3. Exit the container
 4. Replace the `database.sqlite` file with the new one from `course/wiki/database.sqlite`
@@ -118,7 +118,7 @@ isPublished: 1
 tags: coma, separated, list
 ---
 ```
-3. Start the container _with_ the volume mount `docker run -it --rm -v "$(pwd)/course:/course" marshallasch/java-resources:latest`
+3. Start the container _with_ the volume mount `docker run -it --rm -v "$(pwd)/course:/course" scioer/java-resources:latest`
 4. Go to http://localhost:3000 and navigate to Administration > Storage > Local File System
 5. Enable local file storage, set the Path to `/course/wiki/files`
 6. Scroll to the bottom of the page and run `Import Everything`, now all of the wiki pages should be imported
@@ -128,7 +128,7 @@ tags: coma, separated, list
 
 ### How to configure builtin jupyter notebooks
 
-Adding built in jupyter notebooks to the container is simpler. 
+Adding built in jupyter notebooks to the container is simpler.
 Place all the desired files in the `builtinNotebooks` folder, then build the image.
 
 ### Startup message
@@ -137,10 +137,10 @@ To change the startup message that gets printed when the container starts edit t
 
 ### Extending this container with custom container
 
-This image is designed to be used as a base image to be loaded with custom content for specific course deliveries. 
+This image is designed to be used as a base image to be loaded with custom content for specific course deliveries.
 
 An example can be found in the `example` folder that will create an image with pre added jupyter notebooks and wiki configurations.
-The steps to create the wiki configuration is the same as that for this container. 
+The steps to create the wiki configuration is the same as that for this container.
 
 ## Software License
 
