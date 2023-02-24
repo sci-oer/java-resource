@@ -1,7 +1,7 @@
 [![Deployment](https://github.com/sci-oer/java-resource/actions/workflows/deployment.yml/badge.svg)](https://github.com/sci-oer/java-resource/actions/workflows/deployment.yml)
 ![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/scioer/java-resource?style=plastic)
 ![Docker Pulls](https://img.shields.io/docker/pulls/scioer/java-resource?style=plastic)
-
+![GitHub](https://img.shields.io/github/license/sci-oer/java-resource?style=plastic)
 
 This is the Java-11 specific version of the sci-oer resource.
 This extends the configuration defined in the [sci-oer/base-resource](https://github.com/sci-oer/base-resource) and adds the language specific dependencies.
