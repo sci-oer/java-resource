@@ -135,12 +135,10 @@ Place all the desired files in the `builtinNotebooks` folder, then build the ima
 
 To change the startup message that gets printed when the container starts edit the text in `motd.txt` to include the desired text
 
-### Extending this container with custom container
+## Extending this container with custom container
 
-This image is designed to be used as a base image to be loaded with custom content for specific course deliveries.
-
-An example can be found in the `example` folder that will create an image with pre added jupyter notebooks and wiki configurations.
-The steps to create the wiki configuration is the same as that for this container.
+This image is designed to be used as a base image for the [scioer-builder](https://pypi.org/project/scioer-builder/)
+to generate a custom image for a course.
 
 ## Software License
 
